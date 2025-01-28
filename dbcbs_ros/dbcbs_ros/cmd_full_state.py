@@ -12,11 +12,11 @@ def parse_data(yaml_path,Z):
         data = yaml.safe_load(ymlfile)['result']  # a list  elements are dictionaries
     num_traj = len(data) # number of trajectories
     print('number of trajectories',num_traj)
-    if len(data[0]['states'][0]) == 4:
-        print("The length of data[0]['states'] is 4.------------")
-    else:
-        print("The length of data[0]['states'] is",len(data[0]['states'][0]))
-        quit()
+    # if len(data[0]['states'][0]) == 4:
+    #     print("The length of data[0]['states'] is 4.------------")
+    # else:
+    #     print("The length of data[0]['states'] is",len(data[0]['states'][0]))
+    #     quit()
 
     num_waypoints = max([len(trajectory['states']) for trajectory in data])
     print("Minimum number of waypoints:", num_waypoints)
@@ -25,9 +25,14 @@ def parse_data(yaml_path,Z):
     velocity_list = []
     acceleration_list = []
     for trajectory in data:
-        states = [row[0:2] + [Z] for row in trajectory['states']]  
-        velocity = [row[2:4] + [0] for row in trajectory['states']]  
-        acceleration = [row[0:2] + [0] for row in trajectory['actions']]
+        # states = [row[0:2] + [Z] for row in trajectory['states']]  
+        # velocity = [row[2:4] + [0] for row in trajectory['states']]  
+        # acceleration = [row[0:2] + [0] for row in trajectory['actions']]
+
+        states = [row[0:3] for row in trajectory['states']]  
+        velocity = [row[3:6] for row in trajectory['states']]  
+        acceleration = [row[0:3] for row in trajectory['actions']]
+
         while len(states) < num_waypoints:
             states.append(states[-1])  # Append the last line of states
             
@@ -49,14 +54,16 @@ def main():
     timeHelper = swarm.timeHelper
     allcfs = swarm.allcfs   # CrazyflieServer.crazyflies[0] --> Crazyflie
 
-    rate = 10.0
-    Z = 0.5
+    rate = 5.0
+    Z =0.5
 
     allcfs.takeoff(targetHeight=Z, duration=Z+1.0)
     timeHelper.sleep(Z+2.0)
 
     # parse data
-    yaml_path = Path(__file__).parent / "data/forest_4.yaml"
+    # yaml_path = Path(__file__).parent / "data/swap2.yaml"
+    yaml_path = Path(__file__).parent / "data/wall8_opt.yaml"
+    
     num_traj,num_waypoints,states_list,velocity_list,acceleration_list = parse_data(yaml_path,Z)
 
     # check the num of UAV <= states_list
@@ -64,16 +71,48 @@ def main():
         print(f'not enough trajectory for {len(allcfs.crazyflies)} crazyfile')
         quit()
 
-    cfnames=["cf17", "cf16", "cf15", "cf14"]
+    # cfnames=["cf16", "cf17"]
+    # cfnames=["cf2" ,"cf5"]
+    # traj_ids = [0,4]
 
-    # execute trajectory
+
+    # cfnames=["cf5"]
+    # traj_ids = [0]
+
+    cfnames=["cf2" ,"cf5","cf8" ,"cf9"]
+    traj_ids = [0,4,1,5]
+
+
+    # cfnames=["cf5","cf8" ,"cf9"]
+    # traj_ids = [4,1,5]
+
+    # cfnames=["cf2" ,"cf5" ,"cf9"]
+    # traj_ids = [0,4,5]
+
+
+    # cfnames=["cf2" ,"cf9"]
+    # traj_ids = [0,5]
+
+
+    print('num_waypoints',num_waypoints)
+
+    # num_waypoints = 10
+
     for state_id in range(num_waypoints):
         for drone_id in range(len(allcfs.crazyflies)):
             cf = allcfs.crazyfliesByName[cfnames[drone_id]]   
-            pos = states_list[drone_id][state_id]
-            vel = velocity_list[drone_id][state_id]
-            acc = acceleration_list[drone_id][state_id]
-            print('drone_id',drone_id,'pos:',pos,'vel',vel,'acc',acc)
+            # pos = states_list[drone_id][state_id]
+            # vel = velocity_list[drone_id][state_id]
+            # acc = acceleration_list[drone_id][state_id]
+
+            traj_id = traj_ids[drone_id]
+            print('traj_id',traj_id)
+            pos = states_list[traj_id][state_id]
+            vel = velocity_list[traj_id][state_id]
+            acc = acceleration_list[traj_id][state_id]
+
+
+            print('cfname',cfnames[drone_id],'pos:',pos,'vel',vel,'acc',acc)
             cf.cmdFullState(pos, vel, acc, 0, np.zeros(3))  
         timeHelper.sleepForRate(rate)
 

@@ -1,26 +1,131 @@
 # named list of all robots
 robots:
-  cf14:
-    enabled: true
-    uri: radio://0/80/2M/E7E7E7E718
-    initial_position: [0.5,-1.0, 0]
-    type: cf21  # see robot_types
-  cf15:
-    enabled: true
-    uri: radio://0/80/2M/E7E7E7E70F
-    initial_position: [-0.5,2.0, 0]
-    type: cf21  # see robot_types    
+  # cf231:
+  #   enabled: false
+  #   uri: radio://0/80/2M/E7E7E7E7E7
+  #   initial_position: [0.0, 0.0, 0.0]
+  #   type: cfbl  # see robot_types
+    # firmware_params:
+    #   kalman:
+    #     pNAcc_xy: 1.0 # default 0.5
+    # firmware_logging:
+    #   enabled: true
+    #   custom_topics:
+    #     topic_name3: 
+    #       frequency: 1
+    #       vars: ["acc.x", "acc.y"]
 
-  cf17:
+  # cf14:
+  #   enabled: true
+  #   uri: radio://0/80/2M/E7E7E7E70E
+  #   initial_position: [0.0, 1.0, 0.0]
+  #   type: cf21  # see robot_types
+  # cf15:
+  #   enabled: true
+  #   uri: radio://0/80/2M/E7E7E7E70F
+  #   initial_position: [-0.5, 1.0, 0.0]
+  #   type: cf21  # see robot_types
+  # cf16:
+  #   enabled: true
+  #   uri: radio://0/80/2M/E7E7E7E716
+  #   initial_position: [0.0, -0.5, 0.0]
+  #   type: cf21  # see robot_types
+  # cf17:
+  #   enabled: true
+  #   uri: radio://0/80/2M/E7E7E7E717
+  #   initial_position: [-0.5, -0.5, 0.0]
+  #   type: cf21  # see robot_types
+
+  cf2:
     enabled: true
-    uri: radio://0/80/2M/E7E7E7E717
-    initial_position: [0,-1, 0]
+    uri: radio://0/88/2M/E7E7E7EE02
+    initial_position: [0.0, -1.0, 0.0]
     type: cf21  # see robot_types
-  cf16:
+  cf5:
     enabled: true
-    uri: radio://0/80/2M/E7E7E7E716
-    initial_position: [0,2, 0]
+    uri: radio://0/88/2M/E7E7E7EE05
+    initial_position: [0.0, 1.0, 0.0]
     type: cf21  # see robot_types
+  cf8:
+    enabled: true
+    uri: radio://0/88/2M/E7E7E7EE08
+    initial_position: [0.0, -1.5, 0.0]
+    type: cf21  # see robot_types
+  cf9:
+    enabled: true
+    uri: radio://0/88/2M/E7E7E7EE09
+    initial_position: [0.5, 1.0, 0.0]
+    type: cf21  # see robot_types
+
+
+
+
+
+  # cf5:
+  #   enabled: true
+  #   uri: radio://0/88/2M/E7E7E7EE05
+  #   initial_position: [-0.5, 0.0, 0.0]
+  #   type: cf21  # see robot_types
+  # cf8:
+  #   enabled: true
+  #   uri: radio://0/88/2M/E7E7E7EE08
+  #   initial_position: [-0.5, 0.5, 0.0]
+  #   type: cf21  # see robot_types
+  # cf9:
+  #   enabled: true
+  #   uri: radio://0/88/2M/E7E7E7EE09
+  #   initial_position: [0.0, 0.5, 0.0]
+  #   type: cf21  # see robot_types
+  #   firmware_params:
+  #     kalman:
+  #       pNAcc_xy: 1.0 # default 0.5
+  #   firmware_logging:
+  #    custom_topics:
+  #      topic_name3: 
+  #        frequency: 1
+  #        vars: ["acc.x", "acc.y", "acc.z"]
+
+  # cf231:
+  #   enabled: true
+  #   uri: radio://0/80/2M/E7E7E7E7E7
+  #   initial_position: [0.0, 0.0, 0.0]
+  #   type: cfbl  # see robot_types
+
+  # payload:
+  #     enabled: false
+  #     initial_position: [-0.25, 0.0, 0.0]
+  #     # initial_position: [0.0, 0.0, 0.0]
+  #     type: marker    # see robot_types
+  #     id: 255
+
+  # polulu9:
+  #   enabled: true
+  #   # uri: radio://0/85/2M/E7E7E7E707
+  #   uri: radio://0/20/2M/E7E7E7E7E7
+  #   initial_position: [0.0, 0.0, 0.0]
+  #   type: polulu  # see robot_types
+
+  # polulu8:
+  #   enabled: true
+  #   uri: radio://0/20/2M/E7E7E7E7E7
+  #   initial_position: [0.0, 0.0, 0.0]
+  #   type: polulu2  # see robot_types
+  #   id: 8
+  
+  # polulu10:
+  #  enabled: true
+  #  uri: radio://0/20/2M/E7E7E7E7E7
+  #  initial_position: [0.0, 0.0, 0.0]
+  #  type: polulu2  # see robot_types
+  #  id: 10
+
+  # polulu11:
+  #   enabled: true
+  #   uri: radio://0/20/2M/E7E7E7E7E7
+  #   initial_position: [0.0, 0.0, 0.0]
+  #   type: polulu2  # see robot_types
+  #   id: 11
+
 # Definition of the various robot types
 robot_types:
   cf21:
@@ -33,6 +138,9 @@ robot_types:
     battery:
       voltage_warning: 3.8  # V
       voltage_critical: 3.7 # V
+    firmware_params:
+      stabilizer:
+        controller: 2 # 1: PID, 2: mellinger, 5: Lee 7: LeePayload
     # firmware_params:
     #   kalman:
     #     pNAcc_xy: 1.0 # default 0.5
@@ -46,6 +154,69 @@ robot_types:
     #      frequency: 1
     #      vars: ["acc.x", "acc.y", "acc.z"]
 
+  cfbl:
+    motion_capture:
+      enabled: true
+      # only if enabled; see motion_capture.yaml
+      marker: systemid
+      dynamics: default
+    big_quad: false
+    battery:
+      voltage_warning: 3.8  # V
+      voltage_critical: 3.7 # V
+    firmware_params:
+      pwm:
+        d00: 0.166609668469985447
+        d01: 0.0
+        d10: 0.02297914810965436
+        d20: 0.0001878280261464696
+        d11: 0.0
+      ctrlLee:
+        mass: 0.0444
+
+  bolt1:
+    motion_capture:
+      enabled: true
+      # only if enabled; see motion_capture.yaml
+      marker: default_single_marker
+      dynamics: default
+    big_quad: true
+    firmware_params:
+      stabilizer:
+        estimator: 2 # 1: complementary, 2: kalman
+        controller: 7 # 1: PID, 2: mellinger, 5: Lee 7: LeePayload
+      quadSysId:
+        pwmToThrustA: 1.674083739626719
+        pwmToThrustB: 0.46073860593750005
+        armLength: 0.065
+      # see https://www.bitcraze.io/2020/10/testing-crazyflie-bolt-and-1-cell-li-ion/
+      pid_rate:
+        roll_kp: 70.0
+        roll_ki: 200.0
+        roll_kd: 2.0
+        pitch_kp: 70.0
+        pitch_ki: 200.0
+        pitch_kd: 2.0
+      pid_attitude:
+        roll_kp: 7.0
+        roll_ki: 3.0
+        roll_kd: 0.0
+        pitch_kp: 7.0
+        pitch_ki: 3.0
+        pitch_kd: 0.0
+      posCtlPid:
+        thrustMin: 10000
+        thrustBase: 18000
+
+
+  # Just a marker to track, not a robot to connect to
+  marker:
+    connection: none
+    motion_capture:
+      enabled: true
+      marker: default_single_marker
+      dynamics: default
+
   cf21_mocap_deck:
     motion_capture:
       enabled: true
@@ -56,6 +227,25 @@ robot_types:
     battery:
       voltage_warning: 3.8  # V
       voltage_critical: 3.7 # V
+
+  polulu:
+    motion_capture:
+      enabled: true
+      # only if enabled; see motion_capture.yaml
+      marker: default_single_marker
+      dynamics: default
+    big_quad: false
+    battery:
+      voltage_warning: 3.8  # V
+      voltage_critical: 3.7 # V
+
+  # Just a marker to track, not a robot to connect to
+  polulu2:
+    connection: none
+    motion_capture:
+      enabled: false
+      marker: default_single_marker
+      dynamics: default
 
     # firmware_params:
     #   kalman:
@@ -69,6 +259,8 @@ all:
     enabled: true
     default_topics:
      # remove to disable default topic
+      pose:
+        frequency: 10 # Hz
       status:
         frequency: 1 # Hz
     #custom_topics:
@@ -85,18 +277,95 @@ all:
       enHighLevel: 1
     stabilizer:
       estimator: 2 # 1: complementary, 2: kalman
-      controller: 2 # 1: PID, 2: mellinger
+      controller: 5 # 1: PID, 2: mellinger, 5: Lee 7: LeePayload
     # ring:
     #   effect: 16 # 6: double spinner, 7: solid color, 16: packetRate
     #   solidBlue: 255 # if set to solid color
     #   solidGreen: 0 # if set to solid color
     #   solidRed: 0 # if set to solid color
     #   headlightEnable: 0
+    ctrlLeeP:
+      # P load
+      Kpos_Px: 18.0
+      Kpos_Py: 18.0
+      Kpos_Pz: 18.0
+      # D load
+      Kpos_Dx: 16.0
+      Kpos_Dy: 16.0
+      Kpos_Dz: 16.0
+      # I load
+      Kpos_Ix: 5.0
+      Kpos_Iy: 5.0
+      Kpos_Iz: 11.0
+      Kpos_I_limit: 100.0 #0.5
+
+      # P cable
+      Kqx: 19.0
+      Kqy: 19.0
+      Kqz: 19.0
+      Kq_limit: 100.0
+      # D cable
+      Kwx: 14.0
+      Kwy: 14.0
+      Kwz: 14.0
+      # I cable
+      KqIx: 1.0
+      KqIy: 1.0
+      KqIz: 1.0
+
+      # P angle
+      KRx: 0.008 #0.0055 #0.008
+      KRy: 0.008 #0.0055 #0.008
+      KRz: 0.01         #0.01 #0.008
+      # D angle
+      Komx: 0.0013        #0.0013 #0.0017 #0.0013   #0.0017
+      Komy: 0.0013        #0.0013 #0.0017 #0.0013   #0.0017
+      Komz: 0.002          #0.0017
+      # I angle
+      KI_x: 0.02        #0.05 #0.01 #0.009 #0.015
+      KI_y: 0.02        #0.05 #0.01 #0.009 #0.015
+      KI_z: 0.05        #0.05 #0.01 #0.009 #0.015
+
+      # mass: 0.034
+      mass: 0.0444 # with LED ring, usd
+
+      # payload properties
+      # massP: 0.017
+      # massP: 0.0054 # 2 UAV pointmass case
+      # massP: 0.01 # 2 UAV pointmass case
+      massP: 0.0045 # 2 UAV pointmass case
+      # massP: 0.005 # 2 UAV pointmass case
+      form_ctrl: 0
+
+      ap0id: 3
+      ap0x: 0.0
+      ap0y: 0.0
+      ap0z: 0.0
+      ap0l: 0.5 # manual cable length
+
+      # ap1id: 8
+      # ap1x: 0.0
+      # ap1y: 0.0
+      # ap1z: 0.0
+      # ap1l: 0.5 # manual cable length
+
+      Kpos_P_limit: 100.0 #0.5 #0.5
+      Kpos_D_limit: 100.0 #0.1 #0.1
+      radius: 0.15
+
+      gen_hp: 1 # SVM-based hyperplane generation
+      # lambda_svm: 10000.0
+      lambda_svm: 10.0
+
+      lambda: 0.5
+
+    
     locSrv:
       extPosStdDev: 1e-3
       extQuatStdDev: 0.5e-1
     # kalman:
     #   resetEstimation: 1
+
   broadcasts:
     num_repeats: 15 # number of times broadcast commands are repeated
     delay_between_repeats_ms: 1 # delay in milliseconds between individual repeats

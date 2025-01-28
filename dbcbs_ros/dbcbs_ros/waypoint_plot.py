@@ -13,8 +13,8 @@ def plot_trajectory(yaml_path):
     file_name = yaml_path.stem
     
     # Number of states to consider for each trajectory
+    # number = 20
     number = 20
-    # number = -1
     
     # Create a new figure for each YAML file
     plt.figure()
@@ -24,8 +24,8 @@ def plot_trajectory(yaml_path):
         states = traj['states'][:number]
         
         # Extract x and y coordinates from the states
-        x_coords = [point[0] for point in states]
-        y_coords = [point[1] for point in states]
+        x_coords = [point[0] - 2 for point in states]
+        y_coords = [point[1] - 3 for point in states]
         
         # Plot the points for the current trajectory
         plt.scatter(x_coords, y_coords, label=f'Trajectory {i+1}')
@@ -56,7 +56,8 @@ def plot_trajectory(yaml_path):
     plt.show()
 
 def main():
-    yaml_path = Path(__file__).parent / "data/13_09.yaml"
+    # yaml_path = Path(__file__).parent / "data/13_09.yaml"
+    yaml_path = Path(__file__).parent / "data/wall8_opt.yaml"
     plot_trajectory(yaml_path)
 
 if __name__ == "__main__":
