@@ -14,7 +14,8 @@ def plot_trajectory(yaml_path):
     
     # Number of states to consider for each trajectory
     # number = 20
-    number = 20
+    number = 1
+    # number = -1
     
     # Create a new figure for each YAML file
     plt.figure()
@@ -22,10 +23,11 @@ def plot_trajectory(yaml_path):
     # Plot all trajectories in the current YAML file
     for i, traj in enumerate(data):
         states = traj['states'][:number]
+        print('states',states)
         
         # Extract x and y coordinates from the states
-        x_coords = [point[0] - 2 for point in states]
-        y_coords = [point[1] - 3 for point in states]
+        x_coords = [point[0] for point in states]
+        y_coords = [point[1] for point in states]
         
         # Plot the points for the current trajectory
         plt.scatter(x_coords, y_coords, label=f'Trajectory {i+1}')

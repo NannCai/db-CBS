@@ -12,21 +12,26 @@ def main():
     timeHelper = swarm.timeHelper
     allcfs = swarm.allcfs
     trajs = []
-    n = 1  # number of distinct trajectories
+    n = 8  # number of distinct trajectories
 
     # enable logging
     allcfs.setParam('usd.logging', 1)
-    ids = [0]
+    # ids = [0]
     for i in range(n):
         traj = Trajectory()
         # traj.loadcsv(Path(__file__).parent / f'data/multi_trajectory/traj{i}.csv')
-        traj.loadcsv(Path(__file__).parent / f'data/drone.csv')
+        # traj.loadcsv(Path(__file__).parent / f'data/multi_trajectory/robot_{i}.csv')
+        path = f'/home/nan/code/db-CBS/dbcbs_ros/dbcbs_ros/data/multi_traj/robot_{i}.csv'
+        print('path',path)
+        traj.loadcsv(path)
+
         trajs.append(traj)
 
     TRIALS = 1
     TIMESCALE = 1.0
     for i in range(TRIALS):
         for idx, cf in enumerate(allcfs.crazyflies):
+            print('idx % len(trajs)',idx % len(trajs))
             cf.uploadTrajectory(0, 0, trajs[idx % len(trajs)])
 
         allcfs.takeoff(targetHeight=1.0, duration=2.0)
@@ -34,8 +39,10 @@ def main():
 
         # go to initial state
         for idx, cf in enumerate(allcfs.crazyflies):
+            print('idx % len(trajs)',idx % len(trajs))
             traj = trajs[idx % len(trajs)]
             initial_pos = traj.eval(0.0).pos
+            print('initial_pos',initial_pos)
             cf.goTo(initial_pos, 0, 2.0)
         timeHelper.sleep(2.5)
         
