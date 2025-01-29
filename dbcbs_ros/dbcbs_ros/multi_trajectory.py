@@ -12,16 +12,22 @@ def main():
     timeHelper = swarm.timeHelper
     allcfs = swarm.allcfs
     trajs = []
-    n = 8  # number of distinct trajectories
+    # n = 8  # number of distinct trajectories
+
+    ids = range(8)
+    n = len(ids)
+
 
     # enable logging
     allcfs.setParam('usd.logging', 1)
     # ids = [0]
-    for i in range(n):
+    # for i in range(n):
+    for i in ids:
         traj = Trajectory()
         # traj.loadcsv(Path(__file__).parent / f'data/multi_trajectory/traj{i}.csv')
         # traj.loadcsv(Path(__file__).parent / f'data/multi_trajectory/robot_{i}.csv')
-        path = f'/home/nan/code/db-CBS/dbcbs_ros/dbcbs_ros/data/multi_traj/robot_{i}.csv'
+        # path = f'/home/nan/code/db-CBS/dbcbs_ros/dbcbs_ros/data/multi_traj/robot_{i}.csv'
+        path = f'/home/demo/db-CBS/dbcbs_ros/dbcbs_ros/data/multi_traj/robot_{i}.csv'
         print('path',path)
         traj.loadcsv(path)
 
@@ -34,7 +40,7 @@ def main():
             print('idx % len(trajs)',idx % len(trajs))
             cf.uploadTrajectory(0, 0, trajs[idx % len(trajs)])
 
-        allcfs.takeoff(targetHeight=1.0, duration=2.0)
+        allcfs.takeoff(targetHeight=0.5, duration=2.0)
         timeHelper.sleep(3.0)
 
         # go to initial state
